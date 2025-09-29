@@ -54,13 +54,15 @@ Incluye operaciones CRUD, validación de datos, pruebas unitarias con JUnit + Mo
 
 ## 📌 Endpoints principales
 
-| Método   | Endpoint           | Descripción             |
-| -------- | ------------------ | ----------------------- |
-| `POST`   | `/api/to-do`       | Crear una tarea         |
-| `GET`    | `/api/to-do`       | Listar todas las tareas |
+| Método   | Endpoint          | Descripción             |
+| -------- | ----------------- | ----------------------- |
+| `POST`   | `/api/to-do`      | Crear una tarea         |
+| `GET`    | `/api/to-do`      | Listar todas las tareas |
+| `GET`    | `/api/to-do/{id}` | Obtener tareas por ID   |
+| `PUT`    | `/api/to-do/{id}` | Actualizar tarea        |
+| `DELETE` | `/api/to-do/{id}` | Eliminar tarea          |
 
-Próximamente nuevas implementaciones
----
+## Próximamente nuevas implementaciones
 
 ## 📖 Ejemplo de uso
 
@@ -75,8 +77,8 @@ Content-Type: application/json
 
 ```json
 {
-    "title": "Seguir Aprendiendo Java/SpringBoot",
-    "task": "Conceptos, Sintaxis y Práctica"
+  "title": "Seguir Aprendiendo Java/SpringBoot",
+  "task": "Conceptos, Sintaxis y Práctica"
 }
 ```
 
@@ -84,10 +86,10 @@ Content-Type: application/json
 
 ```json
 {
-    "id": 1,
-    "title": "Seguir Aprendiendo Java/SpringBoot",
-    "task": "Conceptos, Sintaxis y Práctica",
-    "taskDate": "26-09-2025"
+  "id": 1,
+  "title": "Seguir Aprendiendo Java/SpringBoot",
+  "task": "Conceptos, Sintaxis y Práctica",
+  "taskDate": "26-09-2025"
 }
 ```
 
@@ -95,10 +97,24 @@ Content-Type: application/json
 
 ## 🧪 Pruebas
 
-Las pruebas unitarias aún no se implementan... :c
+Ejecutar pruebas unitarias:
+
+```bash
+./mvnw test
+```
+
+Ejemplo de test:
+
+```java
+mockMvc.perform(post("/api/to-do")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"title\":\"Seguir Aprendiendo Java/SpringBoot\", \"task\":\"Conceptos, Sintaxis y Práctica\"}"))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.titulo").value("Seguir Aprendiendo Java/SpringBoot"));
 ---
 
 ## 📜 Licencia
 
 Este proyecto se distribuye bajo la licencia MIT.
 Puedes usarlo y modificarlo libremente.
+```
